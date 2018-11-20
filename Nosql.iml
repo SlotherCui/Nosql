@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jar/beautyeye_lnf.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jar/mongo-java-driver-3.8.2.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/commons-beanutils-1.8.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/commons-codec-1.9.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/commons-collections-3.2.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/commons-lang-2.5.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/commons-logging-1.1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/dom4j-1.6.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/ezmorph-1.0.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/json-lib-2.4-jdk15.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/junit-3.8.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/poi-3.11-beta1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/poi-ooxml-3.11-beta1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/poi-ooxml-schemas-3.11-beta1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/stax-api-1.0.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/xml-apis-1.0.b2.jar!/" />
+          <root url="jar://$MODULE_DIR$/jar/excel-jar/xmlbeans-2.3.0.jar!/" />
+          <root url="file://$MODULE_DIR$" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/src" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jar/jcommon-1.0.23.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/jar/jfreechart-1.0.19.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+  </component>
+</module>
