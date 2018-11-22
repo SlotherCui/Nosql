@@ -32,22 +32,24 @@ public class AnalysisPanel extends JPanel implements  ShowTableAble{
         scroll.setSize(Values.FRAM_WIDTH, Values.FRAM_HEIGHT / 2);
         this.add(scroll);
 
-        LinkedList<Object[]> data = DataSelector.Select(SeventhTest.seven().iterator());
-        Object[] colNames = DataSelector.GetFieldNames();
-        table.setModel(new MyTableModel(data, colNames));
 
-
+        /**
+         * 选择
+         */
         JComboBox comboBox = new JComboBox(SevenTest.Initial().Tilte);
         comboBox.setEditable(true);
         comboBox.setFont(new Font("Menu.font", Font.PLAIN, 12));
-        comboBox.setBounds(Values.FRAM_WIDTH - 200, 0, 150, 30);
+        comboBox.setBounds(Values.FRAM_WIDTH - 350, Values.FRAM_HEIGHT * 3 / 4-50, 300, 30);
 
         comboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if(e.getStateChange()==ItemEvent.SELECTED){
 
-
+                    int index  = comboBox.getSelectedIndex();
+                    LinkedList<Object[]> data = DataSelector.Select(SevenTest.Answers[index].answer().iterator());
+                    Object[] colNames = DataSelector.GetFieldNames();
+                    table.setModel(new MyTableModel(data, colNames));
                 }
             }
         });

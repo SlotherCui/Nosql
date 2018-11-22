@@ -1,5 +1,7 @@
 package Test;
 
+import java.util.LinkedList;
+
 import Model.ColName;
 import Model.MongoDAO;
 
@@ -21,20 +23,23 @@ public class FourTest {
 
         Answers[0]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
                 MongoDAO.InsertOne(ColName.student,"{SID:\"201600301079\",NAME:\"崔玉峰\",SEX:\"男\",AGE:\"20\",BIRTHDAY:\"1998-11-05\",DNAME:\"软件学院\",CLASS:\"2016\"}");
+                return null;
             }
         };
         Answers[1]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
                 MongoDAO.InsertOne(ColName.course,"{CID:\"300141\",NAME:\"非关系型数据库\",CREDIT:\"3\"}");
+                return null;
             }
         };
         Answers[2]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
                 MongoDAO.InsertOne(ColName.teacher,"{TID:\"100201\",NAME:\"闫中敏\",SEX:\"女\"},DNAME:\"软件学院\"");
+                return null;
             }
         };
 

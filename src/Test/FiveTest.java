@@ -1,5 +1,7 @@
 package Test;
 
+import java.util.LinkedList;
+
 import Model.ColName;
 import Model.MongoDAO;
 
@@ -20,20 +22,23 @@ public class FiveTest {
 
         Answers[0]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
                 MongoDAO.Update(ColName.student,"{SID:\"201600301079\"}","{$set:{AGE:21}}");
+                return null;
             }
         };
         Answers[1]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
                 MongoDAO.Update(ColName.course,"{NAME:\"非关系型数据库\"}","{$set:{CREDIT:\"2\"}}");
+                return null;
             }
         };
         Answers[2]=new Answer() {
             @Override
-            public void answer() {
+            public LinkedList answer() {
 
+                return null;
             }
         };
 

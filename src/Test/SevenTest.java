@@ -1,10 +1,8 @@
 package Test;
 
-import Model.ColName;
-import Model.MongoDAO;
+import com.mongodb.DBObject;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.LinkedList;
 
 public class SevenTest {
 
@@ -29,56 +27,57 @@ public class SevenTest {
 
         Answers[0] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.one();
+            public LinkedList answer() {
+                return SeventhTest.one();
             }
         };
         Answers[1] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.two();
+            public LinkedList answer() {
+
+                return  SeventhTest.two();
             }
         };
         Answers[2] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.three();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.three();
             }
         };
         Answers[3] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.four();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.four();
             }
         };
         Answers[4] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.five();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.five();
             }
         };
         Answers[5] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.six();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.six();
             }
         };
         Answers[6] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.seven();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.seven();
             }
         };
         Answers[7] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.eight();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.eight();
             }
         };
         Answers[8] = new Answer() {
             @Override
-            public void answer() {
-                SeventhTest.nine();
+            public LinkedList<DBObject> answer() {
+                return SeventhTest.nine();
             }
         };
 

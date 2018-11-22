@@ -1,5 +1,12 @@
 package Test;
 
+import com.mongodb.DBObject;
+
+import java.util.LinkedList;
+
 public interface Answer{
-    public void answer();
+
+    public LinkedList answer();
+
+
 }
