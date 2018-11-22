@@ -2,7 +2,11 @@ package View;
 
 import Control.CourseService;
 import Control.DataSelector;
+import Model.ColName;
+import Model.MongoDAO;
 import Utils.Values;
+import com.mongodb.DBObject;
+import com.mongodb.client.MongoCursor;
 
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
@@ -13,7 +17,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.LinkedList;
 
-public class CoursePanel extends JPanel  implements  TableChageAction{
+public class CoursePanel extends JPanel  implements  TableChageAction,ShowTableAble{
 
     private  String SID = "";
     private DataTable table;
@@ -33,13 +37,6 @@ public class CoursePanel extends JPanel  implements  TableChageAction{
         JScrollPane scroll = new JScrollPane(table);
         scroll.setSize(Values.FRAM_WIDTH, Values.FRAM_HEIGHT / 2);
         this.add(scroll);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-
-            }
-        });
 
         /**
          * SID输入框
@@ -146,5 +143,17 @@ public class CoursePanel extends JPanel  implements  TableChageAction{
 
 
         LoadData();
+    }
+
+    @Override
+    public void ShowTable(ColName colName) {
+        MongoCursor<DBObject> iterable = MongoDAO.FindAll(colName);
+
+        //获得数据
+        LinkedList<Object[]> data = DataSelector.Select(iterable);
+        Object[] colNames = DataSelector.GetFieldNames();
+
+        //表格显示数据
+        table.setModel(new MyTableModel(data, colNames));
     }
 }

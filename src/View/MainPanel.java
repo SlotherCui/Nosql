@@ -19,7 +19,7 @@ import java.util.*;
 /**
  * 数据表面板
  */
-public class MainPanel extends JPanel  implements ActionListener{
+public class MainPanel extends JPanel  implements ActionListener ,ShowTableAble{
 
     private DataTable table;
     private  JLabel label;
@@ -41,8 +41,8 @@ public class MainPanel extends JPanel  implements ActionListener{
         this.add(scroll);
 
 
-
         /**
+         *
          * 显示问题的标签
          */
         label =new JLabel();

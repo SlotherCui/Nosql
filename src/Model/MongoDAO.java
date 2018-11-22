@@ -7,6 +7,7 @@ import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
 import net.sf.json.JSONObject;
+import org.bson.conversions.Bson;
 
 public class MongoDAO {
 

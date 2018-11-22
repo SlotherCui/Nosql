@@ -16,7 +16,7 @@ public class FourTest {
     public FourTest(){
         Tilte[0]="增加一个学生 201600301079 崔玉峰 男 20 1998-11-05 软件学院 2016";
         Tilte[1]="增加一个课程 300141 非关系型数据库 3";
-        Tilte[2]="增加一位老师 100201 闫中敏 女 软件学院";
+        Tilte[2]="增加一位老师 100201 闫老师 女 软件学院";
 
 
         Answers[0]=new Answer() {

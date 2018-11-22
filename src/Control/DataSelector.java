@@ -17,7 +17,7 @@ public class DataSelector {
      *获得字段数据
      * @param iterable
      */
-    public static LinkedList<Object[]> Select(MongoCursor<DBObject> iterable){
+    public static LinkedList<Object[]> Select(Iterator<DBObject> iterable){
 
 
         LinkedList<Object[]> data = new LinkedList<>();
@@ -38,6 +38,12 @@ public class DataSelector {
 
     }
 
+    /**
+     * 获得一个学生的选课数据
+     * @param iterable
+     * @param SID
+     * @return
+     */
     public static LinkedList<Object[]> SelectScore(MongoCursor<DBObject> iterable,String SID){
         LinkedList<Object[]> data = new LinkedList<>();
         //遍历MongDB返回数据
@@ -69,6 +75,8 @@ public class DataSelector {
         }
         return data;
     }
+
+
 
     /**
      * 获得全部字段名

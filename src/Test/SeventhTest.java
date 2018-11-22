@@ -4,33 +4,41 @@ import Model.ColName;
 import Model.MongoDAO;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCursor;
-import net.sf.json.JSON;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 public class SeventhTest {
 
-    public static void  one(){
+    public static LinkedList<DBObject> one(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.course);
 
+        LinkedList<DBObject>result = new LinkedList<>();
         while(itero.hasNext()){
-            DBObject dbObject =itero.next();
-            JSONArray jsonArray = JSONArray.fromObject(dbObject.get("STUDENTS"));
+            DBObject course =itero.next();
+            JSONArray jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
 
             if(jsonArray.size()!=0){
-                System.out.println(dbObject.get("NAME"));
+
+                course.put("size",jsonArray.size());
+                course.removeField("STUDENTS");
+                course.removeField("TEACHER");
+                result.add(course);
             }
 
         }
-
+        return result;
     }
 
-    public static void  two(){
+
+    public static LinkedList<DBObject> two(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.student);
+        LinkedList<DBObject>result = new LinkedList<>();
+
+
         while(itero.hasNext()){
             DBObject student =itero.next();
 
@@ -38,6 +46,7 @@ public class SeventhTest {
             JSONArray jsonArray = JSONArray.fromObject(student.get("COURSES"));
             Iterator<JSONObject> jsonIterator=jsonArray.iterator();
 
+            //求平均成绩
             int SumScore = 0;
             int Count = 0;
             int AvgScore=0;
@@ -50,16 +59,36 @@ public class SeventhTest {
             if(Count != 0)
                 AvgScore = SumScore / Count;
 
-            System.out.print(student.get("SID")+" ");
-            System.out.println(AvgScore);
+            student.put("AvgScore",AvgScore);
+            student.removeField("COURSES");
+
+            //选出TOP 10
+            for (int i =0;i<result.size();i++){
+                DBObject dbObject = result.get(i);
+                if(Integer.parseInt(String.valueOf(dbObject.get("AvgScore")))<AvgScore){
+                    result.add(i,student);
+                    break;
+                }
+            }
+            if(result.size()>10){
+                result.removeLast();
+            }
+            if(result.size()==0){
+                result.add(student);
+            }
+
 
         }
+
+        return result;
 
     }
 
 
-    public static void  three(){
+    public static LinkedList<DBObject> three(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.student);
+        LinkedList<DBObject>result = new LinkedList<>();
+
         while(itero.hasNext()){
             DBObject student =itero.next();
 
@@ -68,18 +97,40 @@ public class SeventhTest {
             int size = jsonArray.size();
             System.out.println(size);
 
+
+            student.put("size",size);
+            student.removeField("COURSES");
+
+            //选出TOP 10
+            for (int i =0;i<result.size();i++){
+                DBObject dbObject = result.get(i);
+                if(Integer.parseInt(String.valueOf(dbObject.get("size")))<size){
+                    result.add(i,student);
+                    break;
+                }
+            }
+            if(result.size()>10){
+                result.removeLast();
+            }
+            if(result.size()==0){
+                result.add(student);
+            }
         }
+
+        return result;
     }
 
-    public static  void  four(){
+    public static LinkedList<DBObject> four(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.student);
+
+        LinkedList<DBObject>result = new LinkedList<>();
         while(itero.hasNext()){
             DBObject student =itero.next();
 
             //遍历所有选课并求出最高成绩
             JSONArray jsonArray = JSONArray.fromObject(student.get("COURSES"));
             Iterator<JSONObject> jsonIterator=jsonArray.iterator();
-
+            //选出最高成绩
             int MaxScore = 0;
             String Cid = "";
             while(jsonIterator.hasNext()){
@@ -93,14 +144,20 @@ public class SeventhTest {
             }
 
 
-            System.out.print(student.get("SID")+" ");
-            System.out.print(Cid+" ");
-            System.out.println(MaxScore);
+            student.removeField("COURSES");
+            student.put("Cid",Cid);
+            student.put("MaxScore",MaxScore);
+
+            result.add(student);
         }
+
+        return result;
     }
 
-    public static  void  five(){
+    public static LinkedList<DBObject> five(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.student);
+        LinkedList<DBObject>result = new LinkedList<>();
+
         while(itero.hasNext()){
             DBObject student =itero.next();
 
@@ -128,51 +185,78 @@ public class SeventhTest {
                 }
             }
 
+            student.removeField("COURSES");
+            student.put("Anum",Anum);
+            student.put("Bnum",Bnum);
+            student.put("Cnum",Cnum);
+            student.put("Dnum",Dnum);
 
-            System.out.print(student.get("SID")+" ");
-            System.out.println(Anum+" "+Bnum+" "+Cnum+" "+Dnum);
+            result.add(student);
 
         }
+
+        return result;
     }
 
-    public static void  six(){
+    public static LinkedList<DBObject> six(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.course);
+        LinkedList<DBObject>result = new LinkedList<>();
         while(itero.hasNext()){
-            DBObject dbObject =itero.next();
-            JSONArray jsonArray = JSONArray.fromObject(dbObject.get("STUDENTS"));
+            DBObject course =itero.next();
 
-            System.out.print(dbObject.get("CID")+" ");
-            System.out.print(jsonArray.size()+" ");
+            JSONArray jsonArray = new JSONArray();
+            if(course.get("STUDENTS")!=null) {
+                jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
+            }
+
+
             int SumScore = 0;
             int Count = 0;
             int AvgScore=0;
             Iterator<JSONObject> jsonIterator=jsonArray.iterator();
+
+
+
             while (jsonIterator.hasNext()){
 
-                JSONObject  jsonObject= jsonIterator.next();
-                SumScore+=Integer.parseInt((String) jsonObject.get("SCORE"));
-                Count++;
+                    JSONObject jsonObject = jsonIterator.next();
+                    SumScore += Integer.parseInt((String) jsonObject.get("SCORE"));
+                    Count++;
 
             }
             if(Count != 0)
                 AvgScore = SumScore / Count;
 
-            System.out.println(AvgScore);
+            course.removeField("STUDENTS");
+            course.removeField("TEACHER");
+            course.put("size",jsonArray.size());
+            course.put("AvgScore",AvgScore);
+            result.add(course);
         }
+        return result;
 
     }
 
-    public static void  seven(){
+    public static LinkedList<DBObject> seven(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.course);
+        LinkedList<DBObject>result = new LinkedList<>();
+
         while(itero.hasNext()){
             DBObject course =itero.next();
 
             //遍历所有选课并求出最高成绩
-            JSONArray jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
+            JSONArray jsonArray = new JSONArray();
+            if(course.get("STUDENTS")!=null) {
+                jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
+            }
+
             Iterator<JSONObject> jsonIterator=jsonArray.iterator();
 
             int MaxScore = 0;
             String Sid = "";
+
+
+
             while(jsonIterator.hasNext()){
 
                 JSONObject  jsonObject= jsonIterator.next();
@@ -183,25 +267,36 @@ public class SeventhTest {
                 }
             }
 
+            course.removeField("STUDENTS");
+            course.removeField("TEACHER");
+            course.put("Sid",Sid);
+            course.put("MaxScore",MaxScore);
+            result.add(course);
 
-            System.out.print(course.get("CID")+" ");
-            System.out.print(Sid+" ");
-            System.out.println(MaxScore);
         }
+        return result;
     }
 
 
-    public static void  eight(){
+    public static LinkedList<DBObject> eight(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.course);
-        while(itero.hasNext()){
-            DBObject dbObject =itero.next();
-            JSONArray jsonArray = JSONArray.fromObject(dbObject.get("STUDENTS"));
 
-            System.out.print(dbObject.get("CID")+" ");
+        LinkedList <DBObject>result = new LinkedList();
+        while(itero.hasNext()){
+            DBObject course =itero.next();
+
+            //选课学生数组
+            JSONArray jsonArray = new JSONArray();
+            if(course.get("STUDENTS")!=null)
+                jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
+
+
+            //求学生平均值
             int SumScore = 0;
             int Count = 0;
             int AvgScore=0;
             Iterator<JSONObject> jsonIterator=jsonArray.iterator();
+
             while (jsonIterator.hasNext()){
 
                 JSONObject  jsonObject= jsonIterator.next();
@@ -212,20 +307,69 @@ public class SeventhTest {
             if(Count != 0)
                 AvgScore = SumScore / Count;
 
-            System.out.println(AvgScore);
+            course.removeField("STUDENTS");
+            course.removeField("TEACHER");
+            course.put("AvgScore",AvgScore);
+
+            //选出TOP 10
+            for (int i =0;i<result.size();i++){
+                DBObject dbObject = result.get(i);
+                if(Integer.parseInt(String.valueOf(dbObject.get("AvgScore")))<AvgScore){
+                    result.add(i,course);
+                    break;
+                }
+            }
+            if(result.size()>10){
+                result.removeLast();
+            }
+            if(result.size()==0){
+                result.add(course);
+            }
+
+
         }
+        return  result;
     }
 
-    public static void  nine(){
+    public static LinkedList<DBObject> nine(){
         MongoCursor<DBObject> itero =  MongoDAO.FindAll(ColName.course);
+
+        //top n 列表
+        LinkedList <DBObject>list = new LinkedList();
         while(itero.hasNext()){
-            DBObject dbObject =itero.next();
-            JSONArray jsonArray = JSONArray.fromObject(dbObject.get("STUDENTS"));
+
+            DBObject course =itero.next();
+            JSONArray jsonArray = JSONArray.fromObject(course.get("STUDENTS"));
 
 
-            System.out.print(jsonArray.size()+" ");
+            course.put("size",jsonArray.size());
+            course.removeField("STUDENTS");
+            course.removeField("TEACHER");
+            Iterator<DBObject> it = list.iterator();
+
+
+            //选出TOP 10
+            for (int i =0;i<list.size();i++){
+                DBObject dbObject = list.get(i);
+                if(Integer.parseInt(String.valueOf(dbObject.get("size")))<jsonArray.size()){
+                    list.add(i,course);
+                    break;
+                }
+            }
+            if(list.size()>10){
+                list.removeLast();
+            }
+            if(list.size()==0){
+                list.add(course);
+            }
+
 
         }
+        return list;
+
     }
+
+
+
 
 }
