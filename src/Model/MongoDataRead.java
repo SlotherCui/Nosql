@@ -73,7 +73,7 @@ public class MongoDataRead {
                 //课程号和成绩
                 JSONObject obj = new JSONObject();
                 obj.put("CID",ClassMap.get("CID"));
-                obj.put("SCORE",ClassMap.get("SCORE"));
+                obj.put("SCORE",Integer.parseInt(ClassMap.get("SCORE")+""));
 
                 jsonArray.add(obj);
             }
@@ -112,7 +112,7 @@ public class MongoDataRead {
                 //构建每个学生json
                 JSONObject obj = new JSONObject();
                 obj.put("SID",ClassMap.get("SID"));
-                obj.put("SCORE",ClassMap.get("SCORE"));
+                obj.put("SCORE",Integer.parseInt(ClassMap.get("SCORE")+""));
 
                 jsonArray.add(obj);
             }

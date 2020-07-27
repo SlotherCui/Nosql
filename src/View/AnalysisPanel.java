@@ -3,11 +3,13 @@ package View;
 import Control.DataSelector;
 import Model.ColName;
 import Model.MongoDAO;
+import Test.AdvanceTest;
 import Test.SevenTest;
 import Test.SeventhTest;
 import Utils.Values;
 import com.mongodb.DBObject;
 import com.mongodb.client.MongoCursor;
+import org.jfree.chart.ChartPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +17,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class AnalysisPanel extends JPanel implements  ShowTableAble{
@@ -47,13 +51,22 @@ public class AnalysisPanel extends JPanel implements  ShowTableAble{
                 if(e.getStateChange()==ItemEvent.SELECTED){
 
                     int index  = comboBox.getSelectedIndex();
-                    LinkedList<Object[]> data = DataSelector.Select(SevenTest.Answers[index].answer().iterator());
+
+                    Date datebfore = new Date();
+                    LinkedList<Object[]> data = DataSelector.Select(SevenTest.Answers[index].answer());
+                    Date datebafter = new Date();
+                    System.out.println(datebafter.getTime()-datebfore.getTime());
+
                     Object[] colNames = DataSelector.GetFieldNames();
                     table.setModel(new MyTableModel(data, colNames));
                 }
             }
         });
         this.add(comboBox);
+
+        this.add(ChartHelper.drawBarChart(AdvanceTest.StudentNumDistribution()));
+
+
     }
 
 

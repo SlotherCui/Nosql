@@ -8,6 +8,7 @@ import com.mongodb.client.MongoCursor;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.Vector;
 
@@ -61,7 +62,28 @@ class MyTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return data.get(rowIndex)[columnIndex];
+
+
+        Object object = "";
+        try {
+             object =data.get(rowIndex)[columnIndex];
+        }catch (Exception e){
+             object = "";
+        }
+
+
+        if(columnIndex==2) {
+            try {
+
+                Double number = (Double) object;
+
+                object = (double) Math.round(number * 10) / 10;
+            } catch (Exception e) {
+
+            }
+        }
+
+        return object;
     }
 
     @Override

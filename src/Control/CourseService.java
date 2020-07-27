@@ -16,15 +16,16 @@ public class CourseService {
     public static MongoCursor<DBObject> FindCourseBySID(String SID) throws  NullPointerException{
 
         MongoCursor<DBObject> it = MongoDAO.FindByBosn(ColName.student,"{SID:\""+SID+"\"}",new String[]{"COURSES.CID"});
-
         if(it.hasNext()){
             DBObject dbObject = it.next();
+            System.out.println(dbObject);
             if(dbObject.get("COURSES")==null){
                 throw new NullPointerException();
             }
 
             String course = dbObject.get("COURSES").toString();
             MongoCursor<DBObject> courses =MongoDAO.FindByBosn(ColName.course,"{$or:"+course+"}");
+            System.out.println(courses);
             return courses;
         }
         throw new NullPointerException();

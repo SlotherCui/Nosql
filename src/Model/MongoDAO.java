@@ -2,12 +2,17 @@ package Model;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.UpdateResult;
 import net.sf.json.JSONObject;
 import org.bson.conversions.Bson;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MongoDAO {
 
@@ -90,11 +95,44 @@ public class MongoDAO {
         //连接mongoDB数据库，获取collection
         MongoDatabase database = MongoDBJDBC.Initial();
         MongoCollection<DBObject> collection = database.getCollection(colName.toString(), DBObject.class);
-
+        //插入文档
         BasicDBObject queryObject = BasicDBObject.parse(query);
         collection.insertOne(queryObject);
     }
 
 
+    /**
+     * 向集合插入多个文档
+     * @param colName
+     * @param querys
+     * @return
+     */
+    public static  void InsertMany(ColName colName, ArrayList<String> querys){
+        //连接mongoDB数据库，获取collection
+        MongoDatabase database = MongoDBJDBC.Initial();
+        MongoCollection<DBObject> collection = database.getCollection(colName.toString(), DBObject.class);
+        //插入文档
 
+        LinkedList<DBObject> linkedList = new LinkedList<>();
+        for(int i =0;i<querys.size();i++){
+            BasicDBObject queryObject = BasicDBObject.parse(querys.get(i));
+            linkedList.add(queryObject);
+        }
+
+        collection.insertMany(linkedList);
+    }
+
+    /**
+     * 聚合操作
+     * @param colName
+     * @param list
+     * @return
+     */
+    public static AggregateIterable<DBObject> Aggregate(ColName colName, List<Bson> list){
+        //连接mongoDB数据库，获取collection
+        MongoDatabase database = MongoDBJDBC.Initial();
+        MongoCollection<DBObject> collection = database.getCollection(colName.toString(), DBObject.class);
+
+        return collection.aggregate(list);
+    }
 }

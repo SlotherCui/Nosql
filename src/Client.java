@@ -1,9 +1,20 @@
 import Control.DataSelector;
+import Model.ColName;
+import Model.MongoDAO;
+import Model.MongoDBJDBC;
+import Model.MongoDataRead;
+import Test.AdvanceTest;
 import Test.SeventhTest;
 import View.MainFrame;
+import com.mongodb.*;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.bson.Document;
 import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.*;
+import java.io.IOException;
 
 
 /**
@@ -31,7 +42,6 @@ public class Client {
 //        MongoDataRead.mergeStudent();
 
 
-//        SeventhTest.seven();
 
         try
         {
@@ -44,16 +54,25 @@ public class Client {
             //TODO exception
         }
 
+
         new MainFrame();
 
-//        MongoCursor<DBObject> it =MongoDAO.FindByBosn(ColName.student,);
-//        while(it.hasNext()){
-//              System.out.println(it.next());
+
+
+//        Mongo mongo=new Mongo("localhost",27017);
+//        DB db = mongo.getDB("user201600301079");
+//        DBCollection dbCollection = db.getCollection("course");
+//        DBCollection outCollection = db.getCollection("posts_total");
+//        String map = "function(){emit(this.FCID,this.NAME);}";
+//        String reduce="function(key,value){return {value:2};}";
+//        MapReduceCommand cmd = new MapReduceCommand(dbCollection,map ,reduce, "posts_total" , MapReduceCommand.OutputType.REPLACE,null);
+//
+//        MapReduceOutput out = dbCollection.mapReduce(cmd);
+//
+//        for(DBObject o : out.results()){
+//            System.out.println(o.toString());
 //        }
 
-
-
-
-
+//        AdvanceTest.AvgScoreDistribution();
     }
 }
